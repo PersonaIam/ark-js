@@ -1,7 +1,7 @@
 {
-  "name": "arkjs",
+  "name": "personajs",
   "version": "0.2.1",
-  "description": "JavaScript library for sending Ark transactions from the client or server",
+  "description": "JavaScript library for sending Persona transactions from the client or server",
   "main": "index.js",
   "engines": {
     "node": ">=4"
@@ -21,9 +21,9 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ArkEcosystem/ark-js.git"
+    "url": "git+https://github.com/PersonaIam/persona-js.git"
   },
-  "homepage": "https://github.com/ArkEcosystem/ark-js",
+  "homepage": "https://github.com/PersonaIam/persona-js",
   "keywords": [
     "api",
     "ark",
@@ -34,7 +34,7 @@
     "server",
     "transaction"
   ],
-  "bugs": "https://github.com/ArkEcosystem/ark-js/issues",
+  "bugs": "https://github.com/PersonaIam/persona-js/issues",
   "contributors": [
     "FX Thoorens <fx@ark.io>",
     "Guillaume Verbal <doweig@ark.io>",
