@@ -1,5 +1,5 @@
 /**
- * @module arkjs
+ * @module personajs
  * @license MIT
  */
 
@@ -16,6 +16,10 @@ module.exports = {
 	transaction : require("./lib/transactions/transaction.js"),
 	/** @see module:vote */
 	vote : require("./lib/transactions/vote.js"),
+	/** @see module:vote */
+	register : require("./lib/transactions/register.js"),
+	/** @see module:vote */
+	verify : require("./lib/transactions/verify.js"),
 	/** @see module:ipfs */
 	ipfs : require("./lib/transactions/ipfs.js"),
 	/** @see module:networks */
