@@ -1,10 +1,10 @@
 var Buffer = require("buffer/").Buffer;
 var should = require("should");
-var ark = require("../../index.js");
+var persona = require("../../index.js");
 
 describe("ipfs.js", function () {
 
-  var ipfs = ark.ipfs;
+  var ipfs = persona.ipfs;
 
   it("should be ok", function () {
     (ipfs).should.be.ok;
@@ -24,7 +24,7 @@ describe("ipfs.js", function () {
   });
 
   it("should be deserialised correctly", function () {
-    var deserialisedTx = ark.crypto.fromBytes(ark.crypto.getBytes(trs).toString("hex"));
+    var deserialisedTx = persona.crypto.fromBytes(persona.crypto.getBytes(trs).toString("hex"));
     var keys = Object.keys(deserialisedTx);
     for(key in keys){
       deserialisedTx[keys[key]].should.equal(trs[keys[key]]);
@@ -93,19 +93,19 @@ describe("ipfs.js", function () {
     });
 
     it("should be signed correctly", function () {
-      var result = ark.crypto.verify(trs);
+      var result = persona.crypto.verify(trs);
       (result).should.be.ok;
     });
 
     it("should not be signed correctly now (changed amount)", function () {
       trs.amount = 10000;
-      var result = ark.crypto.verify(trs);
+      var result = persona.crypto.verify(trs);
       (result).should.be.not.ok;
     });
 
     it("should not be signed correctly now (changed vendorField)", function () {
       trs.vendorField = "bouloup";
-      var result = ark.crypto.verify(trs);
+      var result = persona.crypto.verify(trs);
       (result).should.be.not.ok;
     });
   });

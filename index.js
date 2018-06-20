@@ -1,5 +1,5 @@
 /**
- * @module arkjs
+ * @module personajs
  * @license MIT
  */
 

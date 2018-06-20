@@ -155,7 +155,7 @@ describe('ECPair', function () {
       var keyPair = ECPair.makeRandom()
 
       assert.strictEqual(keyPair.compressed, true)
-      assert.strictEqual(keyPair.network, NETWORKS.ark)
+      assert.strictEqual(keyPair.network, NETWORKS.persona)
     })
 
     it('supports the options parameter', function () {

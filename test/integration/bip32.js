@@ -2,16 +2,16 @@
 
 var assert = require('assert')
 var bigi = require('bigi')
-var ark = require('../../')
+var persona = require('../../')
 var crypto = require('crypto')
 
 var ecurve = require('ecurve')
 var secp256k1 = ecurve.getCurveByName('secp256k1')
 
-describe('ark-js (BIP32)', function () {
+describe('persona-js (BIP32)', function () {
   it('can create a BIP32 wallet external address', function () {
     var path = "m/0'/0/0"
-    var root = ark.HDNode.fromSeedHex('dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd')
+    var root = persona.HDNode.fromSeedHex('dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd')
 
     var child1 = root.derivePath(path)
 
@@ -24,9 +24,9 @@ describe('ark-js (BIP32)', function () {
     assert.equal(child2.getAddress(), 'AZXdSTRFGHPokX6yfXTfHcTzzHKncioj31')
   })
 
-  it('can create a BIP44, ark, account 0, external address', function () {
+  it('can create a BIP44, persona, account 0, external address', function () {
     var path = "m/44'/0'/0'/0/0"
-    var root = ark.HDNode.fromSeedHex('dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd')
+    var root = persona.HDNode.fromSeedHex('dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd')
 
     var child1 = root.derivePath(path)
 
@@ -56,7 +56,7 @@ describe('ark-js (BIP32)', function () {
       serQP.copy(data, 0)
 
       // search index space until we find it
-      for (var i = 0; i < ark.HDNode.HIGHEST_BIT; ++i) {
+      for (var i = 0; i < persona.HDNode.HIGHEST_BIT; ++i) {
         data.writeUInt32BE(i, 33)
 
         // calculate I
@@ -67,11 +67,11 @@ describe('ark-js (BIP32)', function () {
         // See hdnode.js:273 to understand
         d2 = d1.subtract(pIL).mod(curve.n)
 
-        var Qp = new ark.ECPair(d2).Q
+        var Qp = new persona.ECPair(d2).Q
         if (Qp.equals(QP)) break
       }
 
-      var node = new ark.HDNode(new ark.ECPair(d2), master.chainCode, master.network)
+      var node = new persona.HDNode(new persona.ECPair(d2), master.chainCode, master.network)
       node.depth = master.depth
       node.index = master.index
       node.masterFingerprint = master.masterFingerprint
@@ -79,7 +79,7 @@ describe('ark-js (BIP32)', function () {
     }
 
     var seed = crypto.randomBytes(32)
-    var master = ark.HDNode.fromSeedBuffer(seed)
+    var master = persona.HDNode.fromSeedBuffer(seed)
     var child = master.derive(6) // m/6
 
     // now for the recovery

@@ -15,7 +15,7 @@
                 "--timeout",
                 "999999",
                 "--colors",
-                "${workspaceRoot}/test/ark.js",
+                "${workspaceRoot}/test/persona.js",
                 "${workspaceRoot}/test/*/*.js"
             ],
             "internalConsoleOptions": "openOnSessionStart"

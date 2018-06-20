@@ -2,25 +2,25 @@
 
 var assert = require('assert')
 var bigi = require('bigi')
-var ark = require('../../')
+var persona = require('../../')
 
-describe('ark-js (basic)', function () {
-  it('can generate a random ark address', function () {
+describe('persona-js (basic)', function () {
+  it('can generate a random persona address', function () {
     // for testing only
     function rng () { return new Buffer('zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz') }
 
     // generate random keyPair
-    var keyPair = ark.ECPair.makeRandom({ rng: rng })
+    var keyPair = persona.ECPair.makeRandom({ rng: rng })
     var address = keyPair.getAddress()
 
     assert.strictEqual(address, 'ANoMWEJ9jSdE2FgohBLLXeLzci59BDFsP4')
   })
 
   it('can generate an address from a SHA256 hash', function () {
-    var hash = ark.crypto.sha256('correct horse battery staple')
+    var hash = persona.crypto.sha256('correct horse battery staple')
     var d = bigi.fromBuffer(hash)
 
-    var keyPair = new ark.ECPair(d)
+    var keyPair = new persona.ECPair(d)
     var address = keyPair.getAddress()
 
     assert.strictEqual(address, 'AG5AtmiNbgv51eLwAWnRGvkMudVd7anYP2')
@@ -30,9 +30,9 @@ describe('ark-js (basic)', function () {
     // for testing only
     function rng () { return new Buffer('zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz') }
 
-    var bitcoin = ark.networks.bitcoin
+    var bitcoin = persona.networks.bitcoin
 
-    var keyPair = ark.ECPair.makeRandom({ network: bitcoin, rng: rng })
+    var keyPair = persona.ECPair.makeRandom({ network: bitcoin, rng: rng })
     var wif = keyPair.toWIF()
     var address = keyPair.getAddress()
 
@@ -41,7 +41,7 @@ describe('ark-js (basic)', function () {
   })
 
   it('can import an address via WIF', function () {
-    var keyPair = ark.ECPair.fromWIF('S9aCCSFvm8kNeyFb1t6pLb5oJs9tv96ag6uA8Du6UM7zsmsNHQiz')
+    var keyPair = persona.ECPair.fromWIF('S9aCCSFvm8kNeyFb1t6pLb5oJs9tv96ag6uA8Du6UM7zsmsNHQiz')
     var address = keyPair.getAddress()
 
     assert.strictEqual(address, 'AcMiVQNHjggC1PyfVSvCcdWZKMisMKj8eo')

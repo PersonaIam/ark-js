@@ -1,6 +1,6 @@
 var Buffer = require("buffer/").Buffer;
 var should = require("should");
-var ark = require("../../index.js");
+var persona = require("../../index.js");
 var ECPair = require('../../lib/ecpair');
 
 var ecdsa = require('../../lib/ecdsa')
@@ -9,7 +9,7 @@ var curve = ecdsa.__curve
 
 describe("crypto.js", function () {
 
-  var crypto = ark.crypto;
+  var crypto = persona.crypto;
 
   it("should be ok", function () {
     (crypto).should.be.ok;
@@ -321,17 +321,17 @@ describe("crypto.js", function () {
 describe("different networks", function () {
 
   it("validate address on tesnet should be ok", function () {
-    ark.crypto.setNetworkVersion(0x52);
-    ark.crypto.getNetworkVersion().should.equal(0x52);
-    var validate = ark.crypto.validateAddress("a6fpb1BJZq4otWiVsBcuLG1ZGs5WsqqQtH");
+    persona.crypto.setNetworkVersion(0x52);
+    persona.crypto.getNetworkVersion().should.equal(0x52);
+    var validate = persona.crypto.validateAddress("a6fpb1BJZq4otWiVsBcuLG1ZGs5WsqqQtH");
     (validate).should.equal(true);
-    ark.crypto.setNetworkVersion(0x17);
-    ark.crypto.getNetworkVersion().should.equal(0x17);
+    persona.crypto.setNetworkVersion(0x17);
+    persona.crypto.getNetworkVersion().should.equal(0x17);
   });
 });
 
 describe("delegate.js", function () {
-  var delegate = ark.delegate;
+  var delegate = persona.delegate;
 
   it("should be ok", function () {
     (delegate).should.be.ok;
@@ -362,7 +362,7 @@ describe("delegate.js", function () {
     });
 
     it("should be deserialised correctly", function () {
-      var deserialisedTx = ark.crypto.fromBytes(ark.crypto.getBytes(trs).toString("hex"));
+      var deserialisedTx = persona.crypto.fromBytes(persona.crypto.getBytes(trs).toString("hex"));
       delete deserialisedTx.vendorFieldHex;
       var keys = Object.keys(deserialisedTx)
       for(key in keys){
@@ -376,8 +376,8 @@ describe("delegate.js", function () {
     });
 
     describe("returned delegate", function () {
-      var keys = ark.crypto.getKeys("secret");
-      var secondKeys = ark.crypto.getKeys("secret 2");
+      var keys = persona.crypto.getKeys("secret");
+      var secondKeys = persona.crypto.getKeys("secret 2");
 
       it("should be ok", function () {
         (trs).should.be.ok;
@@ -449,24 +449,24 @@ describe("delegate.js", function () {
       })
 
       it("should be signed correctly", function () {
-        var result = ark.crypto.verify(trs);
+        var result = persona.crypto.verify(trs);
         (result).should.be.ok;
       });
 
       it("should be second signed correctly", function () {
-        var result = ark.crypto.verifySecondSignature(trs, secondKeys.publicKey);
+        var result = persona.crypto.verifySecondSignature(trs, secondKeys.publicKey);
         (result).should.be.ok;
       });
 
       it("should not be signed correctly now", function () {
         trs.amount = 100;
-        var result = ark.crypto.verify(trs);
+        var result = persona.crypto.verify(trs);
         (result).should.be.not.ok;
       });
 
       it("should not be second signed correctly now", function () {
         trs.amount = 100;
-        var result = ark.crypto.verifySecondSignature(trs, secondKeys.publicKey);
+        var result = persona.crypto.verifySecondSignature(trs, secondKeys.publicKey);
         (result).should.be.not.ok;
       });
 

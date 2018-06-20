@@ -1,6 +1,6 @@
 var Buffer = require("buffer/").Buffer;
 var should = require("should");
-var ark = require("../../index.js");
+var persona = require("../../index.js");
 
 describe("slots.js", function () {
 

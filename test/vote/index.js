@@ -1,12 +1,12 @@
 var Buffer = require("buffer/").Buffer;
 var should = require("should");
-var ark = require("../../index.js");
+var persona = require("../../index.js");
 
 var NETWORKS = require('../../lib/networks');
 
 describe("vote.js", function () {
 
-  var vote = ark.vote;
+  var vote = persona.vote;
 
   it("should be ok", function () {
     (vote).should.be.ok;
@@ -23,7 +23,7 @@ describe("vote.js", function () {
   describe("#createVote", function () {
     var createVote = vote.createVote,
       vt = null,
-      publicKey = ark.crypto.getKeys("secret").publicKey,
+      publicKey = persona.crypto.getKeys("secret").publicKey,
       publicKeys = ["+" + publicKey];
 
     it("should be ok", function () {
@@ -39,17 +39,17 @@ describe("vote.js", function () {
     });
 
     it("should create vote from ecpair", function () {
-      var secretKey = ark.ECPair.fromSeed("secret");
+      var secretKey = persona.ECPair.fromSeed("secret");
       secretKey.publicKey = secretKey.getPublicKeyBuffer().toString("hex");
 
-      var secondSecretKey = ark.ECPair.fromSeed("second secret");
+      var secondSecretKey = persona.ECPair.fromSeed("second secret");
       secondSecretKey.publicKey = secondSecretKey.getPublicKeyBuffer().toString("hex");
 
       vt = createVote(secretKey, publicKeys, secondSecretKey);
     });
 
     it("should create vote from wif", function () {
-      var secretKey = ark.ECPair.fromWIF("SB3iDxYmKgjkhfDZSKgLaBrp3Ynzd3yd3ZZF2ujVBK7vLpv6hWKK", NETWORKS.ark);
+      var secretKey = persona.ECPair.fromWIF("SB3iDxYmKgjkhfDZSKgLaBrp3Ynzd3yd3ZZF2ujVBK7vLpv6hWKK", NETWORKS.persona);
       secretKey.publicKey = secretKey.getPublicKeyBuffer().toString("hex");
 
       var tx = createVote(secretKey, publicKeys);
@@ -59,7 +59,7 @@ describe("vote.js", function () {
     });
 
     it("should be deserialised correctly", function () {
-      var deserialisedTx = ark.crypto.fromBytes(ark.crypto.getBytes(vt).toString("hex"));
+      var deserialisedTx = persona.crypto.fromBytes(persona.crypto.getBytes(vt).toString("hex"));
       delete deserialisedTx.vendorFieldHex;
       var keys = Object.keys(deserialisedTx)
       for(key in keys){
@@ -83,7 +83,7 @@ describe("vote.js", function () {
       });
 
       it("should have recipientId string equal to sender", function () {
-        (vt).should.have.property("recipientId").and.be.type("string").and.equal(ark.crypto.getAddress(publicKey))
+        (vt).should.have.property("recipientId").and.be.type("string").and.equal(persona.crypto.getAddress(publicKey))
       });
 
       it("should have amount number equal to 0", function () {
@@ -135,24 +135,24 @@ describe("vote.js", function () {
       });
 
       it("should be signed correctly", function () {
-        var result = ark.crypto.verify(vt);
+        var result = persona.crypto.verify(vt);
         (result).should.be.ok;
       });
 
       it("should be second signed correctly", function () {
-        var result = ark.crypto.verifySecondSignature(vt, ark.crypto.getKeys("second secret").publicKey);
+        var result = persona.crypto.verifySecondSignature(vt, persona.crypto.getKeys("second secret").publicKey);
         (result).should.be.ok;
       });
 
       it("should not be signed correctly now", function () {
         vt.amount = 100;
-        var result = ark.crypto.verify(vt);
+        var result = persona.crypto.verify(vt);
         (result).should.be.not.ok;
       });
 
       it("should not be second signed correctly now", function () {
         vt.amount = 100;
-        var result = ark.crypto.verifySecondSignature(vt, ark.crypto.getKeys("second secret").publicKey);
+        var result = persona.crypto.verifySecondSignature(vt, persona.crypto.getKeys("second secret").publicKey);
         (result).should.be.not.ok;
       });
 

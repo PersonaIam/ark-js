@@ -1,15 +1,8 @@
-![ARK JavaScript](https://i.imgur.com/ywwE2uF.png)
+# Persona JS
 
-
-[![Build Status](https://travis-ci.org/ArkEcosystem/ark-js.svg?branch=master)](https://travis-ci.org/ArkEcosystem/ark-js)
-
-# Ark JS
-
-Ark JS is a JavaScript library for sending ARK transactions. It's main benefit is that it does not require a locally installed ARK node, and instead utilizes the existing peers on the network. It can be used from the client as a [browserify](http://browserify.org/) compiled module, or on the server as a standard Node.js module.
-
-## Installation
-
-[![npm package](https://nodei.co/npm/arkjs.png?downloads=true&downloadRank=true&stars=true)](https://nodei.co/npm/arkjs/)
+Persona JS is a JavaScript library for sending Persona transactions.
+It does not require a locally installed node, and instead utilizes the existing peers on the network.
+It can be used from the client as a [browserify](http://browserify.org/) compiled module, or on the server as a standard Node.js module.
 
 ## Building
 
@@ -40,13 +33,13 @@ Tests written using mocha + schedule.js.
 On the client:
 
 ```html
-<script src="node_modules/arkjs/bundle.min.js"></script>
+<script src="node_modules/persona/bundle.min.js"></script>
 ```
 
 On the server:
 
 ```js
-var ark = require("arkjs");
+var persona = require("personajs");
 ```
 
 ### Generating a key pair
@@ -54,7 +47,7 @@ var ark = require("arkjs");
 To generate a public / private key pair from a given passphrase:
 
 ```js
-var keys = ark.crypto.getKeys("passphrase");
+var keys = persona.crypto.getKeys("passphrase");
 ```
 
 Returning:
@@ -80,10 +73,10 @@ Returning:
 
 ### Generating an address
 
-To generate a unique Ark address from a given public key:
+To generate a unique Persona address from a given public key:
 
 ```js
-var address = ark.crypto.getAddress("5d036a858ce89f844491762eb89e2bfbd50a4a0a0da658e4b2628b25b117ae09");
+var address = persona.crypto.getAddress("5d036a858ce89f844491762eb89e2bfbd50a4a0a0da658e4b2628b25b117ae09");
 ```
 
 Returning:
@@ -98,7 +91,7 @@ To create a signed transaction object, which can then be broadcasted onto the ne
 
 ```js
 var amount      = 1000 * Math.pow(10, 8); // 100000000000
-var transaction = ark.transaction.createTransaction("AGihocTkwDygiFvmg6aG8jThYTic47GzU9", amount, null, "passphrase", "secondPassphrase");
+var transaction = persona.transaction.createTransaction("AGihocTkwDygiFvmg6aG8jThYTic47GzU9", amount, null, "passphrase", "secondPassphrase");
 ```
 
 Returning:
@@ -108,7 +101,7 @@ Returning:
   type: 0, // Transaction type. 0 = Normal transaction.
   amount: 100000000000, // The amount to send expressed as an integer value.
   asset: {}, // Transaction asset, dependent on tx type.
-  fee: 100000000, // 0.1 ARK expressed as an integer value.
+  fee: 100000000, // 0.1 Persona expressed as an integer value.
   id: "500224999259823996", // Transaction ID.
   recipientId: "AGihocTkwDygiFvmg6aG8jThYTic47GzU9", // Recipient ID.
   senderPublicKey: "56e106a1d4a53dbe22cac52fefd8fc4123cfb4ee482f8f25a4fc72eb459b38a5", // Sender's public key.
@@ -132,50 +125,6 @@ The nethash for a given network can be obtained at the following API endpoint:
 /api/blocks/getNetHash
 ```
 
-You can also get the nethash from a peer this way:
-
-On the client using [jQuery](https://jquery.com/):
-
-```js
-var nethash;
-$.ajax({
-  url: "https://api.arknode.net/peer/transactions/",
-  data: JSON.stringify({}),
-  dataType: "json",
-  method: "POST",
-  headers: {
-    "Content-Type": "application/json",
-    "os": "linux3.2.0-4-amd64",
-    "version": "0.3.0",
-    "port": 1,
-    "nethash": "wrong-nethash"
-  },
-  success: function(data) {
-    nethash = data.body.expected;
-  }
-});
-```
-
-From a server using [Request](https://github.com/request/request):
-
-```js
-var nethash;
-request({
-  url: "https://api.arknode.net/peer/transactions",
-  json: { },
-  method: "POST",
-  headers: {
-    "Content-Type": "application/json",
-    "os": "linux3.2.0-4-amd64",
-    "version": "0.3.0",
-    "port": 1,
-    "nethash": "wrong-nethash"
-  }
-}, function(error, response, body) {
-    nethash = body.expected;
-  });
-```
-
 ### Posting a transaction
 
 Transaction objects are sent to `/peer/transactions`, using the `POST` method.
@@ -191,57 +140,6 @@ Content-Type: application/json
         ...
     }]
 }
-```
-
-#### Sending transaction on the Client
-
-Using [jQuery](https://jquery.com/):
-
-```js
-var success = function(data) {
-  console.log(data);
-};
-
-$.ajax({
-  url: "https://api.arknode.net/peer/transactions",
-  data: JSON.stringify({ transactions: [transaction] }),
-  dataType: "json",
-  method: "POST",
-  headers: {
-    "Content-Type": "application/json",
-    "os": "linux3.2.0-4-amd64",
-    "version": "0.3.0",
-    "port": 1,
-    "nethash":nethash
-  },
-  success: success
-});
-```
-
-#### Sending transaction on the Server
-
-Using [Request](https://github.com/request/request):
-
-
-```js
-var request = require("request");
-
-var callback = function(error, response, body) {
-  console.log(error || body);
-};
-
-request({
-  url: "https://api.arknode.net/peer/transactions",
-  json: { transactions: [transaction] },
-  method: "POST",
-  headers: {
-    "Content-Type": "application/json",
-    "os": "linux3.2.0-4-amd64",
-    "version": "0.3.0",
-    "port": 1,
-    "nethash": nethash
-  }
-}, callback);
 ```
 
 #### Peer Response
@@ -265,34 +163,25 @@ If the transaction is deemed invalid, or an error is encountered, the receiving 
 #### Creating a delegate transaction
 
 ```js
-var transaction = ark.delegate.createDelegate("secret", "username", "secondSecret");
+var transaction = persona.delegate.createDelegate("secret", "username", "secondSecret");
 ```
 
 #### Creating a second signature transaction
 
 ```js
-var transaction = ark.signature.createSignature("secret", "secondSecret");
+var transaction = persona.signature.createSignature("secret", "secondSecret");
 ```
 
 #### Creating a vote transaction
 
 ```js
-var transaction = ark.vote.createVote("secret", ["+58199578191950019299181920120128129"], "secondSecret");
+var transaction = persona.vote.createVote("secret", ["+58199578191950019299181920120128129"], "secondSecret");
 ```
-
-***
-
-## Authors
-- FX Thoorens <fx@ark.io>
-- Guillaume Verbal <doweig@ark.io>
-- Boris Povod <boris@crypti.me>
-- Oliver Beddows <oliver@lisk.io>
 
 ## License
 
 The MIT License (MIT)
 
-Copyright (c) 2016-2017 ARK.io<br />
 Copyright (c) 2016 Lisk<br />
 Copyright (c) 2015 Crypti
 

@@ -1,10 +1,10 @@
 var Buffer = require("buffer/").Buffer;
 var should = require("should");
-var ark = require("../../index.js");
+var persona = require("../../index.js");
 
 describe("transaction.js", function () {
 
-  var transaction = ark.transaction;
+  var transaction = persona.transaction;
 
   it("should be object", function () {
     (transaction).should.be.type("object");
@@ -28,7 +28,7 @@ describe("transaction.js", function () {
     });
 
     it("should create transaction without second signature from keys", function () {
-      var secretKey = ark.ECPair.fromSeed("secret");
+      var secretKey = persona.ECPair.fromSeed("secret");
       secretKey.publicKey = secretKey.getPublicKeyBuffer().toString("hex");
 
       trs = createTransaction("AJWRd23HNEhPLkK1ymMnwnDBX2a7QBZqff", 1000, null, secretKey);
@@ -118,12 +118,12 @@ describe("transaction.js", function () {
       });
 
       it("should be signed correctly", function () {
-        var result = ark.crypto.verify(trs);
+        var result = persona.crypto.verify(trs);
         result.should.equal(true);
       });
 
       it("should be deserialised correctly", function () {
-        var deserialisedTx = ark.crypto.fromBytes(ark.crypto.getBytes(trs).toString("hex"));
+        var deserialisedTx = persona.crypto.fromBytes(persona.crypto.getBytes(trs).toString("hex"));
         deserialisedTx.vendorField = new Buffer(deserialisedTx.vendorFieldHex, "hex").toString("utf8")
         delete deserialisedTx.vendorFieldHex;
         var keys = Object.keys(deserialisedTx)
@@ -137,7 +137,7 @@ describe("transaction.js", function () {
 
       it("should not be signed correctly now", function () {
         trs.amount = 10000;
-        var result = ark.crypto.verify(trs);
+        var result = persona.crypto.verify(trs);
         result.should.equal(false);
       });
     });
@@ -169,7 +169,7 @@ describe("transaction.js", function () {
       }
 
       // The transaction to replay
-      var old_transaction = ark.transaction.createTransaction('AacRfTLtxAkR3Mind1XdPCddj1uDkHtwzD', 1, null, 'randomstring');
+      var old_transaction = persona.transaction.createTransaction('AacRfTLtxAkR3Mind1XdPCddj1uDkHtwzD', 1, null, 'randomstring');
 
       // Decode signature
       var decode = bip66.decode(Buffer(old_transaction.signature, "hex"));
@@ -191,20 +191,20 @@ describe("transaction.js", function () {
       new_signature = BIP66_encode(r.toBuffer(r.toDERInteger().length), s.toBuffer(s.toDERInteger().length)).toString('hex');
       //
       // console.log("OLD TRANSACTION : ");
-      // console.log("TXID " + ark.crypto.getId(old_transaction));
-      // console.log("VERIFY " + ark.crypto.verify(old_transaction));
+      // console.log("TXID " + persona.crypto.getId(old_transaction));
+      // console.log("VERIFY " + persona.crypto.verify(old_transaction));
       // console.log("SIG " + old_transaction.signature + "\n");
 
-      ark.crypto.verify(old_transaction).should.equal(true);
+      persona.crypto.verify(old_transaction).should.equal(true);
 
       old_transaction.signature = new_signature;
       //
       // console.log("NEW TRANSACTION : ");
-      // console.log("TXID " + ark.crypto.getId(old_transaction));
-      // console.log("VERIFY " + ark.crypto.verify(old_transaction));
+      // console.log("TXID " + persona.crypto.getId(old_transaction));
+      // console.log("VERIFY " + persona.crypto.verify(old_transaction));
       // console.log("SIG " + old_transaction.signature);
 
-      ark.crypto.verify(old_transaction).should.equal(false);
+      persona.crypto.verify(old_transaction).should.equal(false);
 
     });
 
@@ -214,7 +214,7 @@ describe("transaction.js", function () {
     var createTransaction = transaction.createTransaction;
     var trs = null;
     var secondSecret = "second secret";
-    var keys = ark.crypto.getKeys(secondSecret);
+    var keys = persona.crypto.getKeys(secondSecret);
 
     it("should be a function", function () {
       (createTransaction).should.be.type("function");
@@ -304,7 +304,7 @@ describe("transaction.js", function () {
       });
 
       it("should be deserialised correctly", function () {
-        var deserialisedTx = ark.crypto.fromBytes(ark.crypto.getBytes(trs).toString("hex"));
+        var deserialisedTx = persona.crypto.fromBytes(persona.crypto.getBytes(trs).toString("hex"));
         delete deserialisedTx.vendorFieldHex;
         var keys = Object.keys(deserialisedTx)
         for(key in keys){
@@ -314,24 +314,24 @@ describe("transaction.js", function () {
       });
 
       it("should be signed correctly", function () {
-        var result = ark.crypto.verify(trs);
+        var result = persona.crypto.verify(trs);
         (result).should.equal(true);
       });
 
       it("should be second signed correctly", function () {
-        var result = ark.crypto.verifySecondSignature(trs, keys.publicKey);
+        var result = persona.crypto.verifySecondSignature(trs, keys.publicKey);
         (result).should.equal(true);
       });
 
       it("should not be signed correctly now", function () {
         trs.amount = 10000;
-        var result = ark.crypto.verify(trs);
+        var result = persona.crypto.verify(trs);
         (result).should.equal(false);
       });
 
       it("should not be second signed correctly now", function () {
         trs.amount = 10000;
-        var result = ark.crypto.verifySecondSignature(trs, keys.publicKey);
+        var result = persona.crypto.verifySecondSignature(trs, keys.publicKey);
         (result).should.equal(false);
       });
     });
