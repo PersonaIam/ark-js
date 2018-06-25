@@ -131,7 +131,7 @@ describe('ECPair', function () {
 
   describe('makeRandom', function () {
     var d = new Buffer('0404040404040404040404040404040404040404040404040404040404040404', 'hex')
-    var exWIF = 'S9hzwiZ5ziKjUiFpuZX4Lri3rUocDxZSTy7YzKKHvx8TSjUrYQ27'
+    var exWIF = 'CqXFVC88EssMn94h8jzghCCDTNiu6JA1pD3pdS8mjtJQ6wW5Q1oD'
 
     describe('uses randombytes RNG', function () {
       it('generates a ECPair', function () {

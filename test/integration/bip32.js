@@ -20,8 +20,8 @@ describe('persona-js (BIP32)', function () {
       .derive(0)
       .derive(0)
 
-    assert.equal(child1.getAddress(), 'AZXdSTRFGHPokX6yfXTfHcTzzHKncioj31')
-    assert.equal(child2.getAddress(), 'AZXdSTRFGHPokX6yfXTfHcTzzHKncioj31')
+    assert.equal(child1.getAddress(), 'PSLvwvxTz4DqvPZkSx7rodBB8RZyUNqQUY')
+    assert.equal(child2.getAddress(), 'PSLvwvxTz4DqvPZkSx7rodBB8RZyUNqQUY')
   })
 
   it('can create a BIP44, persona, account 0, external address', function () {
@@ -37,8 +37,8 @@ describe('persona-js (BIP32)', function () {
       .derive(0)
       .derive(0)
 
-    assert.equal(child1.getAddress(), 'AVbXc2KyxtXeAP9zQpp7ixsnaxEEQ6wZbq')
-    assert.equal(child2.getAddress(), 'AVbXc2KyxtXeAP9zQpp7ixsnaxEEQ6wZbq')
+    assert.equal(child1.getAddress(), 'PNQq7VsCgfMgLFcmCFUKEyaxj6UR6DxbVc')
+    assert.equal(child2.getAddress(), 'PNQq7VsCgfMgLFcmCFUKEyaxj6UR6DxbVc')
   })
 
   it('can recover a BIP32 parent private key from the parent public key, and a derived, non-hardened child private key', function () {

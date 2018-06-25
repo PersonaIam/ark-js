@@ -286,10 +286,10 @@ describe("crypto.js", function () {
       var keys = crypto.getKeys("secret second test to be sure it works correctly");
       var address = getAddress(keys.publicKey);
 
-      var Q = ecurve.Point.decodeFrom(curve, new Buffer(keys.publicKey, 'hex'))
-      var keyPair = new ECPair(null, Q);
+      //var Q = ecurve.Point.decodeFrom(curve, new Buffer(keys.publicKey, 'hex'))
+      //var keyPair = new ECPair(null, Q);
 
-      (address).should.be.equal(keyPair.getAddress());
+      (address).should.be.equal('AQSqYnjmwj1GBL5twD4K9EBXDaTHZognox');
     });
   });
 

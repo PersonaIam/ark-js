@@ -49,13 +49,13 @@ describe("vote.js", function () {
     });
 
     it("should create vote from wif", function () {
-      var secretKey = persona.ECPair.fromWIF("SB3iDxYmKgjkhfDZSKgLaBrp3Ynzd3yd3ZZF2ujVBK7vLpv6hWKK", NETWORKS.persona);
+      var secretKey = persona.ECPair.fromWIF("Cx9muhYPUqRQUYeTAUreSfFECzhvCAsff1JYPmVEVGuyZnT2xsa4", NETWORKS.persona);
       secretKey.publicKey = secretKey.getPublicKeyBuffer().toString("hex");
 
       var tx = createVote(secretKey, publicKeys);
       (tx).should.be.ok;
       (tx).should.be.type("object");
-      (tx).should.have.property("recipientId").and.be.type("string").and.be.equal("AL9uJWA5nd6RWn8VSUzGN7spWeZGHeudg9");
+      (tx).should.have.property("recipientId").and.be.type("string").and.be.equal("AcVyDRvH1W3Z2CEEJCMt6tyAZN18C1JD1j");
     });
 
     it("should be deserialised correctly", function () {

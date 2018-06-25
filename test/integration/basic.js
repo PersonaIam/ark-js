@@ -13,7 +13,7 @@ describe('persona-js (basic)', function () {
     var keyPair = persona.ECPair.makeRandom({ rng: rng })
     var address = keyPair.getAddress()
 
-    assert.strictEqual(address, 'ANoMWEJ9jSdE2FgohBLLXeLzci59BDFsP4')
+    assert.strictEqual(address, 'PFcf1hqNTDTGC89aUbzY3f4AkrKKupteyH')
   })
 
   it('can generate an address from a SHA256 hash', function () {
@@ -23,7 +23,7 @@ describe('persona-js (basic)', function () {
     var keyPair = new persona.ECPair(d)
     var address = keyPair.getAddress()
 
-    assert.strictEqual(address, 'AG5AtmiNbgv51eLwAWnRGvkMudVd7anYP2')
+    assert.strictEqual(address, 'P8tUQFFbKTk7BWohwwScnwTY3mjorGbBrv')
   })
 
   it('can generate a random keypair for alternative networks', function () {
@@ -41,10 +41,10 @@ describe('persona-js (basic)', function () {
   })
 
   it('can import an address via WIF', function () {
-    var keyPair = persona.ECPair.fromWIF('S9aCCSFvm8kNeyFb1t6pLb5oJs9tv96ag6uA8Du6UM7zsmsNHQiz')
+    var keyPair = persona.ECPair.fromWIF('CqPSkinRTkypB2npR6ktPx57xZU49yLktvcu3dXxMkKHiDj8YWsx')
     var address = keyPair.getAddress()
 
-    assert.strictEqual(address, 'AcMiVQNHjggC1PyfVSvCcdWZKMisMKj8eo')
+    assert.strictEqual(address, 'PWMt9aP4qf2gWBLfj1tjLRzrKruy4eKHUV')
   })
 
 })
