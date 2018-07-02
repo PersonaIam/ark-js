@@ -270,7 +270,7 @@ describe("crypto.js", function () {
 
       (address).should.be.ok;
       (address).should.be.type("string");
-      (address).should.be.equal("AJWRd23HNEhPLkK1ymMnwnDBX2a7QBZqff");
+      (address).should.be.equal("PBKj8VaW61XRWcmnmC1zTnvMfApJ9RyMu2");
     });
 
     it("should generate address by publicKey - second test", function () {
@@ -279,7 +279,7 @@ describe("crypto.js", function () {
 
       (address).should.be.ok;
       (address).should.be.type("string");
-      (address).should.be.equal("AQSqYnjmwj1GBL5twD4K9EBXDaTHZognox");
+      (address).should.be.equal("PHG94GGzfVqJMCYfidiWfEthMihUFhN8Rx");
     });
 
     it("should generate the same address as ECPair.getAddress()", function () {
@@ -289,7 +289,7 @@ describe("crypto.js", function () {
       //var Q = ecurve.Point.decodeFrom(curve, new Buffer(keys.publicKey, 'hex'))
       //var keyPair = new ECPair(null, Q);
 
-      (address).should.be.equal('AQSqYnjmwj1GBL5twD4K9EBXDaTHZognox');
+      (address).should.be.equal('PHG94GGzfVqJMCYfidiWfEthMihUFhN8Rx');
     });
   });
 
@@ -325,8 +325,8 @@ describe("different networks", function () {
     persona.crypto.getNetworkVersion().should.equal(0x52);
     var validate = persona.crypto.validateAddress("a6fpb1BJZq4otWiVsBcuLG1ZGs5WsqqQtH");
     (validate).should.equal(true);
-    persona.crypto.setNetworkVersion(0x17);
-    persona.crypto.getNetworkVersion().should.equal(0x17);
+    persona.crypto.setNetworkVersion(0x37);
+    persona.crypto.getNetworkVersion().should.equal(0x37);
   });
 });
 

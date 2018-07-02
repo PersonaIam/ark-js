@@ -55,7 +55,7 @@ describe("vote.js", function () {
       var tx = createVote(secretKey, publicKeys);
       (tx).should.be.ok;
       (tx).should.be.type("object");
-      (tx).should.have.property("recipientId").and.be.type("string").and.be.equal("AcVyDRvH1W3Z2CEEJCMt6tyAZN18C1JD1j");
+      (tx).should.have.property("recipientId").and.be.type("string").and.be.equal("PVKGiuTVjGsbC4h15d25cugLhWFJtcz12o");
     });
 
     it("should be deserialised correctly", function () {
