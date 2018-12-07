@@ -29,6 +29,8 @@ module.exports = {
 	HDNode : require("./lib/hdnode.js"),
 	/** @see ECSignature */
 	ECSignature : require("./lib/ecsignature.js"),
+    /** @see encryption */
+    encryption: require("./lib/encryption/encryption.js"),
 }
 
 // extra aliases for bitcoinlib-js compatibility
